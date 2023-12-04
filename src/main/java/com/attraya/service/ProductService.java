@@ -40,4 +40,9 @@ public class ProductService {
         Page<Product> products = repository.findAll(PageRequest.of(pageNumber, pageSize));
         return products;
     }
+
+    public Page<Product> findProductsWithPaginationAndSorting(int pageNumber, int pageSize, String field){
+        Page<Product> products = repository.findAll(PageRequest.of(pageNumber, pageSize).withSort(Sort.by(field)));
+        return products;
+    }
 }

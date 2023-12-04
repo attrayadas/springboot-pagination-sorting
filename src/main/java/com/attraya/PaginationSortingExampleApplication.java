@@ -35,8 +35,14 @@ public class PaginationSortingExampleApplication {
 	}
 
 	@GetMapping("/pagination/{pageNumber}/{pageSize}")
-	private APIResponse<Page<Product>> getProductsWithSort(@PathVariable int pageNumber,@PathVariable int pageSize){
+	private APIResponse<Page<Product>> getProductsWithPagination(@PathVariable int pageNumber,@PathVariable int pageSize){
 		Page<Product> productsWithPagination = service.findProductsWithPagination(pageNumber, pageSize);
+		return new APIResponse<>(productsWithPagination.getSize(), productsWithPagination);
+	}
+
+	@GetMapping("/paginationandsort/{pageNumber}/{pageSize}/{field}")
+	private APIResponse<Page<Product>> getProductsWithSortAndPagination(@PathVariable int pageNumber,@PathVariable int pageSize, @PathVariable String field){
+		Page<Product> productsWithPagination = service.findProductsWithPaginationAndSorting(pageNumber, pageSize, field);
 		return new APIResponse<>(productsWithPagination.getSize(), productsWithPagination);
 	}
 
