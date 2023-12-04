@@ -4,6 +4,8 @@ import com.attraya.entity.Product;
 import com.attraya.repository.ProductRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +34,10 @@ public class ProductService {
 
     public List<Product> findProductsWithSorting(String field){
         return repository.findAll(Sort.by(Sort.Direction.ASC, field));
+    }
+
+    public Page<Product> findProductsWithPagination(int pageNumber, int pageSize){
+        Page<Product> products = repository.findAll(PageRequest.of(pageNumber, pageSize));
+        return products;
     }
 }
